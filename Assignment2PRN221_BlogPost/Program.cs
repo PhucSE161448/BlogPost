@@ -1,7 +1,15 @@
+using BlogPostBO.Model;
+using BlogPostService;
+using BlogPostService.Interface;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<BlogPost_PRN221Context>();
+builder.Services.AddScoped<IAccountService,AccountService>();
+builder.Services.AddScoped<IBlogService,BlogService>();
 
 var app = builder.Build();
 

@@ -26,5 +26,52 @@ namespace BlogPostDAO
         {
             _db = new BlogPost_PRN221Context();
         }
+        public List<BlogPost> GetAll() => _db.BlogPosts.ToList();
+        public bool AddBlogPost(BlogPost BlogPost)
+        {
+            try
+            {
+                _db.Add(BlogPost);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool DeleteBlogPost(int id)
+        {
+            BlogPost BlogPost = GetBlogPostById(id);
+            try
+            {
+                _db.BlogPosts.Remove(BlogPost);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public BlogPost GetBlogPostById(int id)
+        {
+            return _db.BlogPosts.FirstOrDefault(x => x.Id == id);
+        }
+
+        public bool EditBlogPost(BlogPost BlogPost)
+        {
+            BlogPost de = GetBlogPostById(BlogPost.Id);
+            try
+            {
+                _db.Update(de);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

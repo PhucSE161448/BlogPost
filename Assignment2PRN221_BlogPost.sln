@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment2PRN221_BlogPost", "Assignment2PRN221_BlogPost\Assignment2PRN221_BlogPost.csproj", "{04F0A430-E36D-4DC8-BD2D-817949057165}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment2PRN221_BlogPost", "Assignment2PRN221_BlogPost\Assignment2PRN221_BlogPost.csproj", "{04F0A430-E36D-4DC8-BD2D-817949057165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogPostBO", "BlogPostBO\BlogPostBO.csproj", "{656C0DC7-BCEE-4BDB-9714-2DA0A9125C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogPostBO", "BlogPostBO\BlogPostBO.csproj", "{656C0DC7-BCEE-4BDB-9714-2DA0A9125C74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogPostRepository", "BlogPostRepository\BlogPostRepository.csproj", "{577D283C-B266-4F5C-B08E-A62685D0E022}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogPostRepository", "BlogPostRepository\BlogPostRepository.csproj", "{577D283C-B266-4F5C-B08E-A62685D0E022}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogPostDAO", "BlogPostDAO\BlogPostDAO.csproj", "{FA9F30C4-E336-4B15-87BA-80489F652A9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogPostDAO", "BlogPostDAO\BlogPostDAO.csproj", "{FA9F30C4-E336-4B15-87BA-80489F652A9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogPostService", "BlogPostService\BlogPostService.csproj", "{0507C53F-3B4B-47CD-8E81-E9B4C822641D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogPostService", "BlogPostService\BlogPostService.csproj", "{0507C53F-3B4B-47CD-8E81-E9B4C822641D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

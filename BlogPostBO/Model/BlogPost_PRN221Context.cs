@@ -17,11 +17,11 @@ namespace BlogPostBO.Model
         {
         }
 
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<BlogPost> BlogPosts { get; set; }
-        public virtual DbSet<BlogPostComment> BlogPostComments { get; set; }
-        public virtual DbSet<BlogPostLike> BlogPostLikes { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; } = null!;
+        public virtual DbSet<BlogPost> BlogPosts { get; set; } = null!;
+        public virtual DbSet<BlogPostComment> BlogPostComments { get; set; } = null!;
+        public virtual DbSet<BlogPostLike> BlogPostLikes { get; set; } = null!;
+        public virtual DbSet<Tag> Tags { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +31,7 @@ namespace BlogPostBO.Model
                 optionsBuilder.UseSqlServer(GetConnectionString());
             }
         }
+
         private string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -40,63 +41,46 @@ namespace BlogPostBO.Model
             var strConn = config.GetConnectionString("DBDefault");
             return strConn;
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.ToTable("Account");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Email).HasMaxLength(255);
 
                 entity.Property(e => e.IsDelete)
                     .IsRequired()
                     .HasColumnName("Is_Delete")
                     .HasDefaultValueSql("('0')");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Name).HasMaxLength(255);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Password).HasMaxLength(255);
 
-                entity.Property(e => e.Role)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Role).HasMaxLength(255);
             });
 
             modelBuilder.Entity<BlogPost>(entity =>
             {
                 entity.ToTable("BlogPost");
 
-                entity.Property(e => e.Content)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Content).HasMaxLength(255);
 
-                entity.Property(e => e.Heading)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Heading).HasMaxLength(255);
 
                 entity.Property(e => e.ImageUrl)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .HasColumnName("Image_Url");
 
-                entity.Property(e => e.PageTitle)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.PageTitle).HasMaxLength(255);
 
                 entity.Property(e => e.PublishedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ShortDescription)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.ShortDescription).HasMaxLength(255);
 
                 entity.Property(e => e.UrlHandle)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .HasColumnName("Url_Handle");
 
@@ -117,9 +101,7 @@ namespace BlogPostBO.Model
 
                 entity.Property(e => e.DateAdded).HasColumnType("datetime");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Description).HasMaxLength(255);
 
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.BlogPostComments)
@@ -153,9 +135,7 @@ namespace BlogPostBO.Model
 
             modelBuilder.Entity<Tag>(entity =>
             {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Name).HasMaxLength(255);
 
                 entity.HasOne(d => d.BlogPost)
                     .WithMany(p => p.Tags)

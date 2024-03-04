@@ -13,37 +13,42 @@
         <form method="post">
             <div class="mb-3">
                 <label for="heading" class="form-label">Heading</label>
-                <input type="text" class="form-control" id="heading" name="heading">
+                <input type="text" class="form-control" id="heading" asp-for="AddBlogModelRequest.Heading">
             </div>
 
             <div class="mb-3">
                 <label for="pageTitle" class="form-label"> Page Title</label>
-                <input type="text" class="form-control" id="pageTitle" name="pageTitle">
+                <input type="text" class="form-control" id="pageTitle" asp-for="AddBlogModelRequest.PageTitle">
             </div>
 
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" id="content" name="content"></textarea>
+                <textarea class="form-control" id="content" asp-for="AddBlogModelRequest.Content"></textarea>
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description">
+                <input type="text" class="form-control" id="description" asp-for="AddBlogModelRequest.ShortDescription">
             </div>
 
             <div class="mb-3">
                 <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
-                <input type="text" class="form-control" id="featuredImageUrl">
+                <input type="text" class="form-control" id="featuredImageUrl" asp-for="AddBlogModelRequest.ImageUrl">
             </div>
 
             <div class="mb-3">
                 <label for="urlHandle" class="form-label">Url Handle</label>
-                <input type="text" class="form-control" id="urlHandle">
+                <input type="text" class="form-control" id="urlHandle" asp-for="AddBlogModelRequest.UrlHandle">
             </div>
 
             <div class="mb-3">
                 <label for="publishedDate" class="form-label">Published Date</label>
-                <input type="date" class="form-control" id="publishedDate">
+                <input type="date" class="form-control" id="publishedDate" asp-for="AddBlogModelRequest.PublishedDate">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Tags (comma separated)</label>
+                <input type="text" required class="form-control" id="tags" asp-for="Tags" />
+                <span class="text-danger" asp-validation-for="Tags"></span>
             </div>
 
             <div class="mb-3">
@@ -51,4 +56,10 @@
             </div>
         </form>
     </div>
-</div>p     
+</div>
+
+@section Scripts{
+    <script>
+        var editor = new FroalaEditor('#content');
+    </script>
+}

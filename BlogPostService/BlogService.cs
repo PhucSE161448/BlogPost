@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogPostBO.Model;
+using System.Linq.Expressions;
 
 namespace BlogPostService
 {
@@ -18,12 +19,17 @@ namespace BlogPostService
             _repo = new BlogRepository();
         }
 
-        public bool AddBlogPost(BlogPost BlogPost) => _repo.AddBlogPost(BlogPost);
+        public async Task<bool> AddBlogPost(BlogPost BlogPost) => await _repo.AddBlogPost(BlogPost);
 
-        public bool DeleteBlogPost(int id) => _repo.DeleteBlogPost(id);
+        public async Task<bool> DeleteBlogPost(int id) => await _repo.DeleteBlogPost(id);
 
-        public bool EditBlogPost(BlogPost BlogPost) => (_repo.EditBlogPost(BlogPost));
+        public async Task<bool> EditBlogPost(BlogPost BlogPost) => await _repo.EditBlogPost(BlogPost);
 
-        public List<BlogPost> GetAll() => _repo.GetAll();
+        public async Task<List<BlogPost>> GetAll() => await  _repo.GetAll();
+
+        public async Task<List<BlogPost>> GetBlogPostsListByFilter(Expression<Func<BlogPost, bool>>? filter = null)
+            => await _repo.GetBlogPostsListByFilter(filter);
+        public async Task<BlogPost> GetBlogPostsByFilter(Expression<Func<BlogPost, bool>>? filter = null)
+            => await _repo.GetBlogPostsByFilter(filter);
     }
 }

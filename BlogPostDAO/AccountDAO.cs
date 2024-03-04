@@ -65,10 +65,9 @@ namespace BlogPostDAO
         }
         public bool EditAccount(Account Account)
         {
-            Account de = GetAccountById(Account.Id);
             try
             {
-                _db.Update(de);
+                _db.Update(Account);
                 _db.SaveChanges();
                 return true;
             }

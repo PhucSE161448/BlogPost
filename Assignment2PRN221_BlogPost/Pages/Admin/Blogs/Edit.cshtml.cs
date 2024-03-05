@@ -12,19 +12,29 @@ namespace Assignment2PRN221_BlogPost.Pages.Admin.Blogs
 {
     public class EditModel : PageModel
     {
+
         private readonly IBlogService blogService;
         [BindProperty]
         public BlogPost BlogPost { get; set; }
-        public EditModel (IBlogService blog) => blogService = blog;
+        [BindProperty]
+        public string Tags { get; set; }
+        public EditModel(IBlogService blog) => blogService = blog;
         public async Task OnGet(int id)
         {
             BlogPost = await blogService.GetBlogPostsByFilter(x => x.Id == id);
+            if(BlogPost != null && BlogPost.Tags != null)
+            {
+                Tags = string.Join(',', BlogPost.Tags.Select(x => x.Name));
+            }
         }
 
         public async Task<IActionResult> OnPostEdit()
         {
             try
             {
+                BlogPost.Tags = new List<Tag>(Tags.Split(',').Select(x => new Tag { 
+                    Name = x.Trim()
+                }));
                 await blogService.EditBlogPost(BlogPost);
 
                 ViewData["Notification"] = new Notification
@@ -41,14 +51,14 @@ namespace Assignment2PRN221_BlogPost.Pages.Admin.Blogs
                     Type = NotificationType.Error
                 };
             }
-           
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostDelete()
         {
             var blog = await blogService.DeleteBlogPost(BlogPost.Id);
-            if(blog)
+            if (blog)
             {
                 var notification = new Notification
                 {

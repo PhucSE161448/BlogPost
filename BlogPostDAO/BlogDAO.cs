@@ -28,12 +28,12 @@ namespace BlogPostDAO
         {
             _db = new BlogPost_PRN221Context();
         }
-        public async Task<List<BlogPost>> GetAll() => await _db.BlogPosts.Include(x => x.Account).ToListAsync();
+        public async Task<List<BlogPost>> GetAll() => await _db.BlogPosts.AsNoTracking().Include(x => x.Account).ToListAsync();
         public async Task<bool> AddBlogPost(BlogPost BlogPost)
         {
             try
             {
-                await _db.AddAsync(BlogPost);
+                await _db.BlogPosts.AddAsync(BlogPost);
                 await _db.SaveChangesAsync();
                 return true;
             }
@@ -63,7 +63,7 @@ namespace BlogPostDAO
 
         public async Task<bool> EditBlogPost(BlogPost BlogPost)
         {
-            var blog = _db.BlogPosts.FirstOrDefault(x => x.Id == BlogPost.Id);
+            var blog = await _db.BlogPosts.Include(x => x.Tags).AsNoTracking().FirstOrDefaultAsync(x => x.Id == BlogPost.Id);
             if (blog != null)
             {
                 blog.Heading = BlogPost.Heading;
@@ -75,10 +75,17 @@ namespace BlogPostDAO
                 blog.PublishedDate = BlogPost.PublishedDate;
                 blog.Visible = BlogPost.Visible;
                 blog.AccountId = BlogPost.AccountId;
+
+                if (blog.Tags != null && blog.Tags.Any())
+                {
+                    _db.Tags.RemoveRange(blog.Tags);
+                    BlogPost.Tags.ToList().ForEach(x => x.BlogPostId = blog.Id);
+                    await _db.Tags.AddRangeAsync(BlogPost.Tags);
+                }
             }
             try
             {
-                _db.Update(BlogPost);
+                _db.BlogPosts.Update(BlogPost);
                 await _db.SaveChangesAsync();
                 return true;
             }
@@ -103,7 +110,7 @@ namespace BlogPostDAO
             IQueryable<BlogPost> query = _db.BlogPosts;
             if (filter != null)
             {
-                query = query.Include(x => x.Account).Where(filter);
+                query = query.AsNoTracking().Include(x => x.Account).Include(x => x.Tags).Where(filter);
             }
             return await query.FirstOrDefaultAsync();
         }

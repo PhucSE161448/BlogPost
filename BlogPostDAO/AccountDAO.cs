@@ -31,7 +31,7 @@ namespace BlogPostDAO
         {
             try
             {
-                _db.Add(Account);
+                _db.Accounts.Add(Account);
                 _db.SaveChanges();
                 return true;
             }
@@ -67,7 +67,7 @@ namespace BlogPostDAO
         {
             try
             {
-                _db.Update(Account);
+                _db.Accounts.Update(Account);
                 _db.SaveChanges();
                 return true;
             }

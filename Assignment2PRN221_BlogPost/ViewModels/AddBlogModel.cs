@@ -2,7 +2,6 @@
 {
     public class AddBlogModel
     {
-        public int Id { get; set; }
         public int AccountId { get; set; }
         public string Heading { get; set; }
         public string PageTitle { get; set; }

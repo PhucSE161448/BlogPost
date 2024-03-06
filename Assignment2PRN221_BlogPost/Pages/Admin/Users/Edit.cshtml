@@ -1,0 +1,49 @@
+﻿@page "{id:int}"
+@model Assignment2PRN221_BlogPost.Pages.Admin.Users.EditModel
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Edit Account</h1>
+    </div>
+</div>
+<partial name="_Notification" />
+<div>
+    <div class="container">
+        <form method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">Id</label>
+                <input type="text" required class="form-control" id="id" asp-for="account.Id" readonly>
+                <span class="text-danger" asp-validation-for="account.Id"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input type="text" required class="form-control" id="Email" asp-for="account.Email">
+                <span class="text-danger" asp-validation-for="account.Email"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <input type="text" required class="form-control" id="Name" asp-for="account.Name">
+                <span class="text-danger" asp-validation-for="account.Name"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <textarea class="form-control" required id="role" asp-for="account.Role"></textarea>
+                <span class="text-danger" asp-validation-for="account.Role"></span>
+
+            </div>
+
+         
+
+            <div class="mb-3 d-flex justify-content-between">
+                <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
+
+                <button class="btn btn-danger" type="submit" asp-page-handler="Delete">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>

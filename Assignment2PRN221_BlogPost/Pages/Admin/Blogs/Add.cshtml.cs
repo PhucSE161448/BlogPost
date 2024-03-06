@@ -3,6 +3,7 @@ using BlogPostBO.Enums;
 using BlogPostBO.Model;
 using BlogPostService;
 using BlogPostService.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -13,6 +14,7 @@ namespace Assignment2PRN221_BlogPost.Pages.Admin.Blogs
     {
         [BindProperty]
         public AddBlogModel AddBlogModelRequest { get; set; }
+
         [BindProperty]
         public string Tags { get; set; }
 

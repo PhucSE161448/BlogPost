@@ -19,16 +19,16 @@ namespace BlogPostService
             _repo = new AccountRepository();
         }
 
-        public bool AddAccount(Account Account) => _repo.AddAccount(Account);
+        public async Task<bool> AddAccount(Account Account) => await _repo.AddAccount(Account);
 
-        public Account CheckLogin(string email, string password) => _repo.CheckLogin(email, password);
+        public async Task<Account> CheckLogin(string email, string password) => await _repo.CheckLogin(email, password);
 
-        public bool DeleteAccount(int id) => _repo.DeleteAccount(id);
+        public async Task<bool> DeleteAccount(int id) => await _repo.DeleteAccount(id);
 
-        public bool EditAccount(Account Account) => _repo.EditAccount(Account);
+        public async Task<bool> EditAccount(Account Account) => await _repo.EditAccount(Account);
 
-        public Account GetAccountById(int id) => _repo.GetAccountById(id);
+        public async Task<Account> GetAccountById(int id) => await _repo.GetAccountById(id);
 
-        public List<Account> GetAll() => _repo.GetAll();
+        public async Task<List<Account>> GetAll() => await _repo.GetAll();
     }
 }

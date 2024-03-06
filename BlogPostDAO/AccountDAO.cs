@@ -1,4 +1,5 @@
 ﻿using BlogPostBO.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,13 @@ namespace BlogPostDAO
         {
             _db = new BlogPost_PRN221Context();
         }
-        public List<Account> GetAll() => _db.Accounts.ToList(); 
-        public bool AddAccount(Account Account)
+        public async Task<List<Account>> GetAll() => _db.Accounts.AsNoTracking().ToList();
+        public async Task<bool> AddAccount(Account Account)
         {
             try
             {
-                _db.Accounts.Add(Account);
-                _db.SaveChanges();
+                await _db.Accounts.AddAsync(Account);
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -40,13 +41,13 @@ namespace BlogPostDAO
                 return false;
             }
         }
-        public bool DeleteAccount(int id)
+        public async Task<bool> DeleteAccount(int id)
         {
-            Account Account = GetAccountById(id);
+            Account Account = await GetAccountById(id);
             try
             {
                 _db.Accounts.Remove(Account);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -54,21 +55,29 @@ namespace BlogPostDAO
                 return false;
             }
         }
-        public Account GetAccountById(int id)
+        public async Task<Account> GetAccountById(int id)
         {
-            return _db.Accounts.FirstOrDefault(x => x.Id == id);
+            return await _db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Account CheckLogin(string email, string password)
+        public async Task<Account> CheckLogin(string email, string password)
         {
-            return _db.Accounts.FirstOrDefault(x => x.Email.Equals(email) && x.Password.Equals(password));
+            return await _db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Email.Equals(email) && x.Password.Equals(password));
         }
-        public bool EditAccount(Account Account)
+        public async Task<bool> EditAccount(Account Account)
         {
+            var acc = await _db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Account.Id);
+            if (acc != null)
+            {
+                acc.Email = Account.Email;
+                acc.Name = Account.Name;
+                acc.Password = acc.Password;
+                acc.Role = Account.Role;
+            }
             try
             {
-                _db.Accounts.Update(Account);
-                _db.SaveChanges();
+                _db.Accounts.Update(acc);
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch (Exception)

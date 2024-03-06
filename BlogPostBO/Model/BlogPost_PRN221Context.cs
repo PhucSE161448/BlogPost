@@ -19,8 +19,6 @@ namespace BlogPostBO.Model
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<BlogPost> BlogPosts { get; set; } = null!;
-        public virtual DbSet<BlogPostComment> BlogPostComments { get; set; } = null!;
-        public virtual DbSet<BlogPostLike> BlogPostLikes { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,7 +29,6 @@ namespace BlogPostBO.Model
                 optionsBuilder.UseSqlServer(GetConnectionString());
             }
         }
-
         private string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -84,53 +81,13 @@ namespace BlogPostBO.Model
                     .HasMaxLength(255)
                     .HasColumnName("Url_Handle");
 
-                entity.Property(e => e.Visible)
-                    .IsRequired()
-                    .HasDefaultValueSql("('0')");
+                entity.Property(e => e.Visible).HasDefaultValueSql("('0')");
 
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.BlogPosts)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("blogpost_accountid_foreign");
-            });
-
-            modelBuilder.Entity<BlogPostComment>(entity =>
-            {
-                entity.ToTable("BlogPostComment");
-
-                entity.Property(e => e.DateAdded).HasColumnType("datetime");
-
-                entity.Property(e => e.Description).HasMaxLength(255);
-
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.BlogPostComments)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("blogpostcomment_accountid_foreign");
-
-                entity.HasOne(d => d.BlogPost)
-                    .WithMany(p => p.BlogPostComments)
-                    .HasForeignKey(d => d.BlogPostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("blogpostcomment_blogpostid_foreign");
-            });
-
-            modelBuilder.Entity<BlogPostLike>(entity =>
-            {
-                entity.ToTable("BlogPostLike");
-
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.BlogPostLikes)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("blogpostlike_accountid_foreign");
-
-                entity.HasOne(d => d.BlogPost)
-                    .WithMany(p => p.BlogPostLikes)
-                    .HasForeignKey(d => d.BlogPostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("blogpostlike_blogpostid_foreign");
             });
 
             modelBuilder.Entity<Tag>(entity =>

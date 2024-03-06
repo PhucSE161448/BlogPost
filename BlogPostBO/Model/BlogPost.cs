@@ -7,8 +7,6 @@ namespace BlogPostBO.Model
     {
         public BlogPost()
         {
-            BlogPostComments = new HashSet<BlogPostComment>();
-            BlogPostLikes = new HashSet<BlogPostLike>();
             Tags = new HashSet<Tag>();
         }
 
@@ -24,8 +22,6 @@ namespace BlogPostBO.Model
         public bool Visible { get; set; }
 
         public virtual Account Account { get; set; } = null!;
-        public virtual ICollection<BlogPostComment> BlogPostComments { get; set; }
-        public virtual ICollection<BlogPostLike> BlogPostLikes { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
 }

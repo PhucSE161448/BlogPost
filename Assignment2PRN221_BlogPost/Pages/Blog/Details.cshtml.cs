@@ -9,6 +9,7 @@ namespace Assignment2PRN221_BlogPost.Pages.Blog
     {
         private readonly IBlogService blog;
         public BlogPost BlogPost { get; set; }
+
         public DetailsModel(IBlogService blog)
         {
             this.blog = blog;
@@ -18,5 +19,7 @@ namespace Assignment2PRN221_BlogPost.Pages.Blog
             BlogPost = await blog.GetBlogPostsByFilter(x => x.UrlHandle == urlHandle);
             return Page();
         }
+
+      
     }
 }

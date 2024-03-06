@@ -1,0 +1,45 @@
+﻿@page
+@model Assignment2PRN221_BlogPost.Pages.Admin.Users.ListModel
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>User List</h1>
+    </div>
+</div>
+
+<partial name="_Notification" />
+@if (Model.accounts != null && Model.accounts.Any())
+{
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Email</td>
+                    <td>Name</td>
+                    <td>Role</td>
+                    <td> </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var acc in Model.accounts)
+                {
+                    <tr>
+                        <td>@acc.Id</td>
+                        <td>@acc.Email</td>
+                        <td>@acc.Name</td>
+                        <td>@acc.Role</td>
+                        <td><a href="/Admin/Users/Edit/@acc.Id">View</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="container">
+        <p>No users were found!</p>
+    </div>
+}

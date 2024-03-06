@@ -1,4 +1,5 @@
 ﻿using BlogPostBO.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +8,29 @@ using System.Threading.Tasks;
 
 namespace BlogPostDAO
 {
-    public class LikeDAO
+    public class TagDAO
     {
         private readonly BlogPost_PRN221Context _db = null;
-        private static LikeDAO _instance = null;
-        public static LikeDAO Instance
+        private static TagDAO _instance = null;
+        public static TagDAO Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new LikeDAO();
+                    _instance = new TagDAO();
                 }
                 return _instance;
             }
         }
-        public LikeDAO()
+        public TagDAO()
         {
             _db = new BlogPost_PRN221Context();
+        }
+        public async Task<IEnumerable<Tag>> GetAll()
+        {
+            var tags = await _db.Tags.AsNoTracking().ToListAsync();
+            return tags.DistinctBy(x => x.Name.ToLower());
         }
     }
 }

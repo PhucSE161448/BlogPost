@@ -11,15 +11,15 @@ namespace BlogPostRepository
 {
     public class AccountRepository : IAccountRepository
     {
-        public bool AddAccount(Account Account) => AccountDAO.Instance.AddAccount(Account);
+        public async Task<bool> AddAccount(Account Account) => await AccountDAO.Instance.AddAccount(Account);
 
-        public Account CheckLogin(string email, string password) => AccountDAO.Instance.CheckLogin(email, password);
+        public async Task<Account> CheckLogin(string email, string password) => await AccountDAO.Instance.CheckLogin(email, password);
 
-        public bool DeleteAccount(int id) => AccountDAO.Instance.DeleteAccount(id);
+        public async Task<bool> DeleteAccount(int id) => await AccountDAO.Instance.DeleteAccount(id);
 
-        public bool EditAccount(Account Account) => AccountDAO.Instance.EditAccount(Account);
+        public async Task<bool> EditAccount(Account Account) => await AccountDAO.Instance.EditAccount(Account);
 
-        public Account GetAccountById(int id) => AccountDAO.Instance.GetAccountById(id);
-        public List<Account> GetAll() => AccountDAO.Instance.GetAll();
+        public async Task< Account> GetAccountById(int id) => await AccountDAO.Instance.GetAccountById(id);
+        public async Task<List<Account>> GetAll() => await AccountDAO.Instance.GetAll();
     }
 }

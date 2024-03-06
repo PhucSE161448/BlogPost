@@ -9,12 +9,12 @@ namespace BlogPostRepository.Interface
 {
     public interface IAccountRepository
     {
-        public List<Account> GetAll();
-        public bool AddAccount(Account Account);
-        public bool DeleteAccount(int id);
-        public Account GetAccountById(int id);
-        public Account CheckLogin(string email, string password);
+        Task<List<Account>> GetAll();
+        Task<bool> AddAccount(Account Account);
+        Task<bool> DeleteAccount(int id);
+        Task<Account> GetAccountById(int id);
+        Task<Account> CheckLogin(string email, string password);
 
-        public bool EditAccount(Account Account);
+        Task<bool> EditAccount(Account Account);
     }
 }

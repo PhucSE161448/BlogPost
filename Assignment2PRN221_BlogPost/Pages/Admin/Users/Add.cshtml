@@ -1,0 +1,49 @@
+﻿@page
+@model Assignment2PRN221_BlogPost.Pages.Admin.Users.AddModel
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Add Account</h1>
+    </div>
+</div>
+<partial name="_Notification" />
+<div>
+    <div class="container">
+        <form method="post">
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input type="text" required class="form-control" id="Email" asp-for="AddUserModelRequest.Email">
+                <span class="text-danger" asp-validation-for="AddUserModelRequest.Email"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <input type="text" required class="form-control" id="Name" asp-for="AddUserModelRequest.Name">
+                <span class="text-danger" asp-validation-for="AddUserModelRequest.Name"></span>
+
+            </div>   
+            
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <input type="text" required class="form-control" id="Password" asp-for="AddUserModelRequest.Password">
+                <span class="text-danger" asp-validation-for="AddUserModelRequest.Password"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <textarea class="form-control" required id="role" asp-for="AddUserModelRequest.Role"></textarea>
+                <span class="text-danger" asp-validation-for="AddUserModelRequest.Role"></span>
+
+            </div>
+
+
+
+            <div class="mb-3 d-flex justify-content-between">
+                <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

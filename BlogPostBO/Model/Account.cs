@@ -7,8 +7,6 @@ namespace BlogPostBO.Model
     {
         public Account()
         {
-            BlogPostComments = new HashSet<BlogPostComment>();
-            BlogPostLikes = new HashSet<BlogPostLike>();
             BlogPosts = new HashSet<BlogPost>();
         }
 
@@ -19,8 +17,6 @@ namespace BlogPostBO.Model
         public string Role { get; set; } = null!;
         public bool? IsDelete { get; set; }
 
-        public virtual ICollection<BlogPostComment> BlogPostComments { get; set; }
-        public virtual ICollection<BlogPostLike> BlogPostLikes { get; set; }
         public virtual ICollection<BlogPost> BlogPosts { get; set; }
     }
 }
